@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  docker-sample:
+    image: postgres:latest # the image to use
+    container_name: docker-sample # image name
+    restart: always # on system boot, start the container
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - APP_DB_USER=postgres
+      - APP_DB_PASS=postgres
+      - APP_DB_NAME=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports: 
+      - "15433:5432" # use port 15433 locally to hit port 5432 on the docker
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/ # move and run this folder into the docker
