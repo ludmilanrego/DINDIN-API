@@ -37,10 +37,6 @@ const createTransaction = async (req, res) => {
         tipo
     } = req.body
 
-    if (!descricao || !valor || !data || !categoria_id || !tipo) {
-        return res.status(400).json("Todos os campos obrigatórios devem ser informados.");
-    }
-
     if (tipo !== 'entrada' && tipo !== 'saida') {
         return res.status(400).json("descrição de tipo inválida.");
     }
@@ -74,10 +70,6 @@ const updateTransaction = async (req, res) => {
     const { descricao, valor, data, categoria_id, tipo } = req.body;
     const usuario_id = req.user.id;
     const id = Number(req.params.id);
-
-    if (!descricao || !valor || !data || !categoria_id || !tipo) {
-        return res.status(400).json("Todos os campos são obrigatorios.");
-    }
 
     if (tipo !== 'entrada' && tipo !== 'saida') {
         return res.status(400).json("Escolha 'entrada' ou 'saida' como o tipo de transação");

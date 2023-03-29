@@ -7,11 +7,8 @@ const createUser = async (req, res) => {
 
     const { nome, email, senha } = req.body
 
-    if (!nome || !email || !senha) {
-        return res.status(400).json("Nome, email e senha obrigatorios.");
-    }
-
     try {
+
         const findUserQuery = "SELECT * FROM usuarios WHERE email = $1";
         const findUserParams = [email]
         const { rowCount } = await pool.query(findUserQuery, findUserParams);
@@ -40,10 +37,6 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const { email, senha } = req.body
-
-    if (!email || !senha) {
-        return res.status(400).json("Email e senha obrigatorios.");
-    }
 
     try {
         const loginQuery = "SELECT * FROM usuarios WHERE email = $1"
@@ -96,10 +89,6 @@ const listUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const { nome, email, senha } = req.body;
     const id = req.user.id;
-
-    if (!nome || !email || !senha) {
-        return res.status(400).json("Nome, email e senha obrigatorios.");
-    }
 
     try {
         const { rows } = await pool.query('SELECT email, id FROM usuarios WHERE email = $1 and id = $2', [email, id]);
